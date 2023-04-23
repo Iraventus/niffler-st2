@@ -21,26 +21,29 @@ import static com.codeborne.selenide.Selenide.$$;
 @ExtendWith(GenerateSpendExtension.class)
 public class SpendsWebTest extends BaseWebTest {
 
+    private final String userName = "Shprotestant";
+    private final String categoryName = "SomeCategory";
+
     @BeforeEach
     void doLogin() {
         Selenide.open("http://127.0.0.1:3000/main");
         $("a[href*='redirect']").click();
-        $("input[name='username']").setValue("Shprotestant");
+        $("input[name='username']").setValue(userName);
         $("input[name='password']").setValue("12345");
         $("button[type='submit']").click();
     }
 
     @GenerateCategory(
-            category = "SomeCategory",
-            username = "Shprotestant"
+            category = categoryName,
+            username = userName
     )
 
     @GenerateSpend(
-            username = "Shprotestant",
+            username = userName,
             description = "QA GURU ADVANCED VOL 2",
             currency = CurrencyValues.RUB,
             amount = 52000.00,
-            category = "SomeCategory"
+            category = categoryName
     )
     @AllureId("101")
     @Test
